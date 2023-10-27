@@ -25,7 +25,7 @@ import { cn } from "@/lib/utils";
 // import { useSearch } from "@/hooks/use-search";
 // import { useSettings } from "@/hooks/use-settings";
 
-// import { UserItem } from "./user-item";
+import { UserItem } from "./UserItem";
 // import { Item } from "./item";
 // import { DocumentList } from "./document-list";
 // import { TrashBox } from "./trash-box";
@@ -152,9 +152,9 @@ export const Navigation = () => {
         >
           <ChevronsLeft className="h-6 w-6" />
         </div>
-        {/* <div>
+        <div>
           <UserItem />
-          <Item
+          {/*  <Item
             label="Search"
             icon={Search}
             isSearch
@@ -189,7 +189,8 @@ export const Navigation = () => {
               <TrashBox />
             </PopoverContent>
           </Popover>
-        </div> */}
+           */}
+        </div>
         <div
           onMouseDown={handleMouseDown}
           onClick={resetWidth}
