@@ -6,12 +6,26 @@ import Image from "next/image";
 import { useUser } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { toast } from "sonner";
 
 interface DocumentsPageProps {}
 
 const Documents: FC<DocumentsPageProps> = ({}) => {
   const { user } = useUser();
-  console.log("USER", user);
+  // Documents comes from documents.tsx in the convex folder
+  const create = useMutation(api.documents.create);
+  const onCreate = () => {
+    const promise = create({ title: "Untitled" });
+
+    toast.promise(promise, {
+      loading: "Creating Note... ⚙️",
+      success: "Note created! 🥳",
+      error: "Failed to create Note 😭",
+    });
+  };
+
   return (
     <div className="h-full flex flex-col items-center justify-center space-y-4">
       <Image
@@ -32,7 +46,7 @@ const Documents: FC<DocumentsPageProps> = ({}) => {
       <h2 className="text-lg font-medium">
         Welcome to {user?.firstName}&apos;s Space!
       </h2>
-      <Button>
+      <Button onClick={onCreate}>
         <PlusCircle className="h-4 mr-2" />
         Create a note
       </Button>
