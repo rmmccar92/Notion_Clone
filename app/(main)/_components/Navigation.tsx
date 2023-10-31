@@ -12,7 +12,7 @@ import {
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 import { toast } from "sonner";
 
 import { cn } from "@/lib/utils";
@@ -27,12 +27,12 @@ import { api } from "@/convex/_generated/api";
 
 import { UserItem } from "./UserItem";
 import { Item } from "./Item";
-// import { DocumentList } from "./document-list";
+import { DocumentList } from "./DocumentList";
 // import { TrashBox } from "./trash-box";
 // import { Navbar } from "./navbar";
 
 export const Navigation = () => {
-  const documents = useQuery(api.documents.get);
+  // const documents = useQuery(api.documents.get);
   const router = useRouter();
   // const settings = useSettings();
   // const search = useSearch();
@@ -183,10 +183,8 @@ export const Navigation = () => {
           </Popover>
            */}
         </div>
-        <div>
-          {documents?.map((document) => (
-            <div key={document._id}>{document.title}</div>
-          ))}
+        <div className="mt-4">
+          <DocumentList />
         </div>
         <div
           onMouseDown={handleMouseDown}

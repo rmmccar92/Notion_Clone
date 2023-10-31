@@ -2,11 +2,31 @@ import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { Doc, Id } from "./_generated/dataModel";
 
-export const get = query({
-  handler: async (context) => {
+// export const get = query({
+//   handler: async (context) => {
+//     const identity = await context.auth.getUserIdentity();
+//     if (!identity) throw new Error("Not logged in");
+//     const documents = await context.db.query("documents").collect();
+//     return documents;
+//   },
+// });
+
+export const getSideBar = query({
+  args: {
+    parentDocument: v.optional(v.id("documents")),
+  },
+  handler: async (context, args) => {
     const identity = await context.auth.getUserIdentity();
     if (!identity) throw new Error("Not logged in");
-    const documents = await context.db.query("documents").collect();
+    const userId = identity.subject;
+    const documents = await context.db
+      .query("documents")
+      .withIndex("by_user_parent", (q) =>
+        q.eq("userId", userId).eq("parentDocument", args.parentDocument)
+      )
+      .filter((q) => q.eq(q.field("isArchived"), false))
+      .order("desc")
+      .collect();
     return documents;
   },
 });
