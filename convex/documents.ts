@@ -11,6 +11,47 @@ import { Doc, Id } from "./_generated/dataModel";
 //   },
 // });
 
+export const archive = mutation({
+  args: {
+    id: v.id("documents"),
+  },
+  handler: async (context, args) => {
+    const identity = await context.auth.getUserIdentity();
+    if (!identity) throw new Error("Not logged in");
+    const userId = identity.subject;
+
+    const existingDocument = await context.db.get(args.id);
+
+    if (!existingDocument) throw new Error("Document not found");
+
+    if (existingDocument.userId !== userId)
+      throw new Error("Document does not belong to this user");
+    const recursiveArchive = async (documentId: Id<"documents">) => {
+      const children = await context.db
+        .query("documents")
+        .withIndex("by_user_parent", (q) =>
+          q.eq("userId", userId).eq("parentDocument", documentId)
+        )
+        .collect();
+
+      for (const child of children) {
+        await context.db.patch(child._id, {
+          isArchived: true,
+        });
+
+        await recursiveArchive(child._id);
+      }
+    };
+    const document = await context.db.patch(args.id, {
+      isArchived: true,
+    });
+
+    recursiveArchive(args.id);
+
+    return document;
+  },
+});
+
 export const getSideBar = query({
   args: {
     parentDocument: v.optional(v.id("documents")),
