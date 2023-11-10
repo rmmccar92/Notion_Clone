@@ -29,7 +29,7 @@ import { toast } from "sonner";
 import { useUser } from "@clerk/clerk-react";
 
 interface ItemProps {
-  onClick: () => void;
+  onClick?: () => void;
   label: string;
   icon: LucideIcon;
   id?: Id<"documents">;

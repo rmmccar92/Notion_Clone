@@ -17,22 +17,21 @@ import { toast } from "sonner";
 
 import { cn } from "@/lib/utils";
 import { api } from "@/convex/_generated/api";
-// import {
-//   Popover,
-//   PopoverTrigger,
-//   PopoverContent,
-// } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/popover";
 // import { useSearch } from "@/hooks/use-search";
 // import { useSettings } from "@/hooks/use-settings";
 
 import { UserItem } from "./UserItem";
 import { Item } from "./Item";
 import { DocumentList } from "./DocumentList";
-// import { TrashBox } from "./trash-box";
-// import { Navbar } from "./navbar";
+import { TrashBox } from "./TrashBox";
+// import { Navbar } from "./Navbar";
 
 export const Navigation = () => {
-  // const documents = useQuery(api.documents.get);
   const router = useRouter();
   // const settings = useSettings();
   // const search = useSearch();
@@ -156,20 +155,13 @@ export const Navigation = () => {
         </div>
         <div>
           <UserItem />
-          <Item label="Search" icon={Search} isSearch onClick={() => {}} />
-          <Item label="Settings" icon={Settings} onClick={() => {}} />
+          {/* <Item label="Search" icon={Search} isSearch onClick={search.onOpen} />
+          <Item label="Settings" icon={Settings} onClick={settings.onOpen} /> */}
           <Item onClick={handleCreate} label="New page" icon={PlusCircle} />
-          {/*  
-         
-     
         </div>
         <div className="mt-4">
           <DocumentList />
-          <Item
-            onClick={handleCreate}
-            icon={Plus}
-            label="Add a page"
-          />
+          <Item onClick={handleCreate} icon={Plus} label="Add a page" />
           <Popover>
             <PopoverTrigger className="w-full mt-4">
               <Item label="Trash" icon={Trash} />
@@ -181,10 +173,6 @@ export const Navigation = () => {
               <TrashBox />
             </PopoverContent>
           </Popover>
-           */}
-        </div>
-        <div className="mt-4">
-          <DocumentList />
         </div>
         <div
           onMouseDown={handleMouseDown}

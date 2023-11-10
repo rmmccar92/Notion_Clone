@@ -33,7 +33,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body className="dark:bg-[#1F1F1F]">
         <ConvexClientProvider>
           <ThemeProvider
             attribute="class"
