@@ -1,6 +1,4 @@
 "use client";
-
-import type { FC } from "react";
 import type { Id } from "@/convex/_generated/dataModel";
 import {
   type LucideIcon,
