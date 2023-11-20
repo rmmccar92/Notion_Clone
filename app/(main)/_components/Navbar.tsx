@@ -8,6 +8,8 @@ import { api } from "@/convex/_generated/api";
 import type { Id } from "@/convex/_generated/dataModel";
 import { MenuIcon } from "lucide-react";
 import { Title } from "./Title";
+import { Banner } from "./Banner";
+import { Menu } from "./Menu";
 interface NavbarProps {
   isCollapsed: boolean;
   onResetWidth: () => void;
@@ -25,8 +27,11 @@ export const Navbar: FC<NavbarProps> = ({ isCollapsed, onResetWidth }) => {
 
   if (doc === undefined) {
     return (
-      <nav className="bg-background dark:bg-[#1F1F1F] px-3 py-2 w-full h-4 flex items-center gap-x-4">
+      <nav className="bg-background dark:bg-[#1F1F1F] px-3 py-2 w-full h-4 flex items-center gap-x-4 justify-between">
         <Title.Skeleton />
+        <div className="flex items-center gap-x-2">
+          <Menu.Skeleton />
+        </div>
       </nav>
     );
   }
@@ -42,8 +47,12 @@ export const Navbar: FC<NavbarProps> = ({ isCollapsed, onResetWidth }) => {
         )}
         <div className="flex items-center justify-between w-full">
           <Title initialData={doc} />
+          <div className="flex items-center gap-x-2">
+            <Menu documentId={doc._id} />
+          </div>
         </div>
       </nav>
+      {doc.isArchived && <Banner documentId={doc._id} />}
     </>
   );
 };
