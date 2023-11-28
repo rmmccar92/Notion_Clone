@@ -67,8 +67,6 @@ export const UserItem: FC<UserItemProps> = ({}) => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <Avatar />
-      <h1>user item</h1>
     </div>
   );
 };
