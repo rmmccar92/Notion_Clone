@@ -6,7 +6,7 @@ import { useScrollTop } from "@/hooks/use-scroll-top";
 import { cn } from "@/lib/utils";
 import Logo from "./Logo";
 import { ModeToggle } from "@/components/theme-toggle";
-import { Spinner } from "@/components/spinner";
+import { Spinner } from "@/components/Spinner";
 import { Button } from "@/components/ui/button";
 import { useConvexAuth } from "convex/react";
 import { UserButton, SignInButton } from "@clerk/clerk-react";

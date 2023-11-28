@@ -2,7 +2,7 @@
 import { useState } from "react";
 import type { FC } from "react";
 import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/spinner";
+import { Spinner } from "@/components/Spinner";
 import { ArrowRight } from "lucide-react";
 import { useConvexAuth } from "convex/react";
 import Link from "next/link";
