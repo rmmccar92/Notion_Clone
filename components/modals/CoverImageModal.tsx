@@ -20,14 +20,17 @@ export const CoverImageModal: FC<CoverImageModalProps> = ({}) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const image = useCoverImage();
   const params = useParams();
+  const coverImage = useCoverImage();
   const { edgestore } = useEdgeStore();
   const updateDoc = useMutation(api.documents.updateDoc);
   const onChange = async (file?: File) => {
     if (file) {
       setIsSubmitting(true);
       setFile(file);
-
-      const res = await edgestore.publicFiles.upload({ file });
+      const res = await edgestore.publicFiles.upload({
+        file,
+        options: { replaceTargetUrl: coverImage.url },
+      });
       await updateDoc({
         id: params.documentId as Id<"documents">,
         coverImage: res.url,
